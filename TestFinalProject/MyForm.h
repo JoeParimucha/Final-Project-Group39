@@ -179,6 +179,7 @@ namespace TestFinalProject {
 			this->DesiredSalary->Size = System::Drawing::Size(243, 41);
 			this->DesiredSalary->TabIndex = 1;
 			this->DesiredSalary->Text = L"Desired Salary:";
+			this->DesiredSalary->UseWaitCursor = true;
 			// 
 			// Title
 			// 
@@ -191,6 +192,7 @@ namespace TestFinalProject {
 			this->Title->Size = System::Drawing::Size(493, 49);
 			this->Title->TabIndex = 2;
 			this->Title->Text = L"San Francisco Job Finder";
+			this->Title->UseWaitCursor = true;
 			// 
 			// BFSSearchTime
 			// 
@@ -203,6 +205,7 @@ namespace TestFinalProject {
 			this->BFSSearchTime->Size = System::Drawing::Size(276, 41);
 			this->BFSSearchTime->TabIndex = 3;
 			this->BFSSearchTime->Text = L"BFS Search Time:";
+			this->BFSSearchTime->UseWaitCursor = true;
 			// 
 			// DFSSearchTime
 			// 
@@ -215,6 +218,7 @@ namespace TestFinalProject {
 			this->DFSSearchTime->Size = System::Drawing::Size(280, 41);
 			this->DFSSearchTime->TabIndex = 4;
 			this->DFSSearchTime->Text = L"DFS Search Time:";
+			this->DFSSearchTime->UseWaitCursor = true;
 			// 
 			// Instructions
 			// 
@@ -228,18 +232,20 @@ namespace TestFinalProject {
 			this->Instructions->TabIndex = 5;
 			this->Instructions->Text = L"Instructions: Enter your desired salary and the BFS Search and DFS search times w"
 				L"ill be outputted along with a list of jobs.";
+			this->Instructions->UseWaitCursor = true;
 			// 
 			// DesiredSalaryBox
 			// 
 			this->DesiredSalaryBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->DesiredSalaryBox->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->DesiredSalaryBox->Cursor = System::Windows::Forms::Cursors::WaitCursor;
 			this->DesiredSalaryBox->Location = System::Drawing::Point(416, 249);
 			this->DesiredSalaryBox->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->DesiredSalaryBox->Name = L"DesiredSalaryBox";
-			this->DesiredSalaryBox->Size = System::Drawing::Size(402, 26);
+			this->DesiredSalaryBox->Size = System::Drawing::Size(400, 26);
 			this->DesiredSalaryBox->TabIndex = 7;
+			this->DesiredSalaryBox->UseWaitCursor = true;
 			this->DesiredSalaryBox->TextChanged += gcnew System::EventHandler(this, &MyForm::DesiredSalaryBox_TextChanged);
 			// 
 			// BFSSearchBox
@@ -249,6 +255,7 @@ namespace TestFinalProject {
 			this->BFSSearchBox->Name = L"BFSSearchBox";
 			this->BFSSearchBox->Size = System::Drawing::Size(400, 26);
 			this->BFSSearchBox->TabIndex = 8;
+			this->BFSSearchBox->UseWaitCursor = true;
 			// 
 			// DFSSearchBox
 			// 
@@ -257,10 +264,11 @@ namespace TestFinalProject {
 			this->DFSSearchBox->Name = L"DFSSearchBox";
 			this->DFSSearchBox->Size = System::Drawing::Size(402, 26);
 			this->DFSSearchBox->TabIndex = 9;
+			this->DFSSearchBox->UseWaitCursor = true;
 			// 
 			// SearchClickyBox
 			// 
-			this->SearchClickyBox->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->SearchClickyBox->Cursor = System::Windows::Forms::Cursors::WaitCursor;
 			this->SearchClickyBox->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->SearchClickyBox->Location = System::Drawing::Point(281, 359);
@@ -270,6 +278,7 @@ namespace TestFinalProject {
 			this->SearchClickyBox->TabIndex = 11;
 			this->SearchClickyBox->Text = L"Search";
 			this->SearchClickyBox->UseVisualStyleBackColor = true;
+			this->SearchClickyBox->UseWaitCursor = true;
 			this->SearchClickyBox->Click += gcnew System::EventHandler(this, &MyForm::Search_Click);
 			// 
 			// Salary
@@ -283,30 +292,33 @@ namespace TestFinalProject {
 			this->Salary->Size = System::Drawing::Size(110, 41);
 			this->Salary->TabIndex = 13;
 			this->Salary->Text = L"Salary";
+			this->Salary->UseWaitCursor = true;
 			// 
 			// JobTitle
 			// 
 			this->JobTitle->AutoSize = true;
 			this->JobTitle->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->JobTitle->Location = System::Drawing::Point(1023, 237);
+			this->JobTitle->Location = System::Drawing::Point(1020, 237);
 			this->JobTitle->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->JobTitle->Name = L"JobTitle";
 			this->JobTitle->Size = System::Drawing::Size(146, 41);
 			this->JobTitle->TabIndex = 12;
 			this->JobTitle->Text = L"Job Title";
+			this->JobTitle->UseWaitCursor = true;
 			// 
 			// SanFranciscoJobWebsiteButton
 			// 
 			this->SanFranciscoJobWebsiteButton->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 14.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->SanFranciscoJobWebsiteButton->Location = System::Drawing::Point(281, 1020);
+			this->SanFranciscoJobWebsiteButton->Location = System::Drawing::Point(281, 1002);
 			this->SanFranciscoJobWebsiteButton->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->SanFranciscoJobWebsiteButton->Name = L"SanFranciscoJobWebsiteButton";
 			this->SanFranciscoJobWebsiteButton->Size = System::Drawing::Size(372, 102);
 			this->SanFranciscoJobWebsiteButton->TabIndex = 14;
 			this->SanFranciscoJobWebsiteButton->Text = L"San Francisco City Government Job Site";
 			this->SanFranciscoJobWebsiteButton->UseVisualStyleBackColor = true;
+			this->SanFranciscoJobWebsiteButton->UseWaitCursor = true;
 			this->SanFranciscoJobWebsiteButton->Click += gcnew System::EventHandler(this, &MyForm::Clicked_Job_Button);
 			// 
 			// Table_Jobs_Salary
@@ -341,7 +353,8 @@ namespace TestFinalProject {
 			this->Table_Jobs_Salary->Controls->Add(this->JobTitle1, 0, 0);
 			this->Table_Jobs_Salary->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->Table_Jobs_Salary->Location = System::Drawing::Point(938, 296);
+			this->Table_Jobs_Salary->GrowStyle = System::Windows::Forms::TableLayoutPanelGrowStyle::FixedSize;
+			this->Table_Jobs_Salary->Location = System::Drawing::Point(941, 283);
 			this->Table_Jobs_Salary->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Table_Jobs_Salary->Name = L"Table_Jobs_Salary";
 			this->Table_Jobs_Salary->RowCount = 10;
@@ -357,6 +370,7 @@ namespace TestFinalProject {
 			this->Table_Jobs_Salary->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 10)));
 			this->Table_Jobs_Salary->Size = System::Drawing::Size(632, 775);
 			this->Table_Jobs_Salary->TabIndex = 15;
+			this->Table_Jobs_Salary->UseWaitCursor = true;
 			this->Table_Jobs_Salary->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Table_Jobs_Salary_Paint);
 			// 
 			// Salary10
@@ -368,6 +382,7 @@ namespace TestFinalProject {
 			this->Salary10->Name = L"Salary10";
 			this->Salary10->Size = System::Drawing::Size(0, 31);
 			this->Salary10->TabIndex = 19;
+			this->Salary10->UseWaitCursor = true;
 			// 
 			// JobTitle10
 			// 
@@ -378,6 +393,7 @@ namespace TestFinalProject {
 			this->JobTitle10->Name = L"JobTitle10";
 			this->JobTitle10->Size = System::Drawing::Size(0, 31);
 			this->JobTitle10->TabIndex = 18;
+			this->JobTitle10->UseWaitCursor = true;
 			// 
 			// Salary9
 			// 
@@ -388,6 +404,7 @@ namespace TestFinalProject {
 			this->Salary9->Name = L"Salary9";
 			this->Salary9->Size = System::Drawing::Size(0, 31);
 			this->Salary9->TabIndex = 17;
+			this->Salary9->UseWaitCursor = true;
 			// 
 			// JobTitle9
 			// 
@@ -398,6 +415,7 @@ namespace TestFinalProject {
 			this->JobTitle9->Name = L"JobTitle9";
 			this->JobTitle9->Size = System::Drawing::Size(0, 31);
 			this->JobTitle9->TabIndex = 16;
+			this->JobTitle9->UseWaitCursor = true;
 			// 
 			// Salary8
 			// 
@@ -408,6 +426,7 @@ namespace TestFinalProject {
 			this->Salary8->Name = L"Salary8";
 			this->Salary8->Size = System::Drawing::Size(0, 31);
 			this->Salary8->TabIndex = 15;
+			this->Salary8->UseWaitCursor = true;
 			// 
 			// JobTitle8
 			// 
@@ -418,6 +437,7 @@ namespace TestFinalProject {
 			this->JobTitle8->Name = L"JobTitle8";
 			this->JobTitle8->Size = System::Drawing::Size(0, 31);
 			this->JobTitle8->TabIndex = 14;
+			this->JobTitle8->UseWaitCursor = true;
 			// 
 			// Salary7
 			// 
@@ -428,6 +448,7 @@ namespace TestFinalProject {
 			this->Salary7->Name = L"Salary7";
 			this->Salary7->Size = System::Drawing::Size(0, 31);
 			this->Salary7->TabIndex = 13;
+			this->Salary7->UseWaitCursor = true;
 			// 
 			// JobTitle7
 			// 
@@ -438,6 +459,7 @@ namespace TestFinalProject {
 			this->JobTitle7->Name = L"JobTitle7";
 			this->JobTitle7->Size = System::Drawing::Size(0, 31);
 			this->JobTitle7->TabIndex = 12;
+			this->JobTitle7->UseWaitCursor = true;
 			// 
 			// Salary6
 			// 
@@ -448,6 +470,7 @@ namespace TestFinalProject {
 			this->Salary6->Name = L"Salary6";
 			this->Salary6->Size = System::Drawing::Size(0, 31);
 			this->Salary6->TabIndex = 11;
+			this->Salary6->UseWaitCursor = true;
 			// 
 			// JobTitle6
 			// 
@@ -458,6 +481,7 @@ namespace TestFinalProject {
 			this->JobTitle6->Name = L"JobTitle6";
 			this->JobTitle6->Size = System::Drawing::Size(0, 31);
 			this->JobTitle6->TabIndex = 10;
+			this->JobTitle6->UseWaitCursor = true;
 			// 
 			// Salary5
 			// 
@@ -468,6 +492,7 @@ namespace TestFinalProject {
 			this->Salary5->Name = L"Salary5";
 			this->Salary5->Size = System::Drawing::Size(0, 31);
 			this->Salary5->TabIndex = 9;
+			this->Salary5->UseWaitCursor = true;
 			// 
 			// JobTitle5
 			// 
@@ -478,6 +503,7 @@ namespace TestFinalProject {
 			this->JobTitle5->Name = L"JobTitle5";
 			this->JobTitle5->Size = System::Drawing::Size(0, 31);
 			this->JobTitle5->TabIndex = 8;
+			this->JobTitle5->UseWaitCursor = true;
 			// 
 			// Salary4
 			// 
@@ -488,6 +514,7 @@ namespace TestFinalProject {
 			this->Salary4->Name = L"Salary4";
 			this->Salary4->Size = System::Drawing::Size(0, 31);
 			this->Salary4->TabIndex = 7;
+			this->Salary4->UseWaitCursor = true;
 			// 
 			// JobTitle4
 			// 
@@ -498,6 +525,7 @@ namespace TestFinalProject {
 			this->JobTitle4->Name = L"JobTitle4";
 			this->JobTitle4->Size = System::Drawing::Size(0, 31);
 			this->JobTitle4->TabIndex = 6;
+			this->JobTitle4->UseWaitCursor = true;
 			// 
 			// Salary3
 			// 
@@ -508,6 +536,7 @@ namespace TestFinalProject {
 			this->Salary3->Name = L"Salary3";
 			this->Salary3->Size = System::Drawing::Size(0, 31);
 			this->Salary3->TabIndex = 5;
+			this->Salary3->UseWaitCursor = true;
 			// 
 			// JobTitle3
 			// 
@@ -518,6 +547,7 @@ namespace TestFinalProject {
 			this->JobTitle3->Name = L"JobTitle3";
 			this->JobTitle3->Size = System::Drawing::Size(0, 31);
 			this->JobTitle3->TabIndex = 4;
+			this->JobTitle3->UseWaitCursor = true;
 			// 
 			// Salary2
 			// 
@@ -528,6 +558,7 @@ namespace TestFinalProject {
 			this->Salary2->Name = L"Salary2";
 			this->Salary2->Size = System::Drawing::Size(0, 31);
 			this->Salary2->TabIndex = 3;
+			this->Salary2->UseWaitCursor = true;
 			// 
 			// JobTitle2
 			// 
@@ -538,6 +569,7 @@ namespace TestFinalProject {
 			this->JobTitle2->Name = L"JobTitle2";
 			this->JobTitle2->Size = System::Drawing::Size(0, 31);
 			this->JobTitle2->TabIndex = 2;
+			this->JobTitle2->UseWaitCursor = true;
 			// 
 			// Salary1
 			// 
@@ -548,6 +580,7 @@ namespace TestFinalProject {
 			this->Salary1->Name = L"Salary1";
 			this->Salary1->Size = System::Drawing::Size(0, 31);
 			this->Salary1->TabIndex = 1;
+			this->Salary1->UseWaitCursor = true;
 			// 
 			// JobTitle1
 			// 
@@ -558,6 +591,7 @@ namespace TestFinalProject {
 			this->JobTitle1->Name = L"JobTitle1";
 			this->JobTitle1->Size = System::Drawing::Size(0, 31);
 			this->JobTitle1->TabIndex = 0;
+			this->JobTitle1->UseWaitCursor = true;
 			// 
 			// GoldenGateBridge
 			// 
@@ -571,6 +605,7 @@ namespace TestFinalProject {
 			this->GoldenGateBridge->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->GoldenGateBridge->TabIndex = 16;
 			this->GoldenGateBridge->TabStop = false;
+			this->GoldenGateBridge->UseWaitCursor = true;
 			// 
 			// BFS_CheckBox
 			// 
@@ -581,6 +616,7 @@ namespace TestFinalProject {
 			this->BFS_CheckBox->Size = System::Drawing::Size(22, 21);
 			this->BFS_CheckBox->TabIndex = 17;
 			this->BFS_CheckBox->UseVisualStyleBackColor = true;
+			this->BFS_CheckBox->UseWaitCursor = true;
 			this->BFS_CheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::BFS_CheckBox_CheckedChanged_1);
 			// 
 			// DFS_CheckBox
@@ -592,6 +628,7 @@ namespace TestFinalProject {
 			this->DFS_CheckBox->Size = System::Drawing::Size(22, 21);
 			this->DFS_CheckBox->TabIndex = 18;
 			this->DFS_CheckBox->UseVisualStyleBackColor = true;
+			this->DFS_CheckBox->UseWaitCursor = true;
 			this->DFS_CheckBox->CheckedChanged += gcnew System::EventHandler(this, &MyForm::DFS_CheckBox_CheckedChanged);
 			// 
 			// PercentVariance
@@ -604,6 +641,7 @@ namespace TestFinalProject {
 			this->PercentVariance->Size = System::Drawing::Size(284, 41);
 			this->PercentVariance->TabIndex = 19;
 			this->PercentVariance->Text = L"Percent Variance:";
+			this->PercentVariance->UseWaitCursor = true;
 			// 
 			// PercentVarianceInsertBox
 			// 
@@ -611,15 +649,15 @@ namespace TestFinalProject {
 			this->PercentVarianceInsertBox->Name = L"PercentVarianceInsertBox";
 			this->PercentVarianceInsertBox->Size = System::Drawing::Size(398, 26);
 			this->PercentVarianceInsertBox->TabIndex = 20;
+			this->PercentVarianceInsertBox->UseWaitCursor = true;
 			this->PercentVarianceInsertBox->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->AutoSize = true;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(1788, 1169);
+			this->ClientSize = System::Drawing::Size(2828, 1590);
 			this->Controls->Add(this->PercentVarianceInsertBox);
 			this->Controls->Add(this->PercentVariance);
 			this->Controls->Add(this->DFS_CheckBox);
@@ -640,7 +678,9 @@ namespace TestFinalProject {
 			this->Controls->Add(this->DesiredSalary);
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"MyForm";
+			this->UseWaitCursor = true;
 			this->Table_Jobs_Salary->ResumeLayout(false);
 			this->Table_Jobs_Salary->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GoldenGateBridge))->EndInit();
@@ -656,7 +696,6 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 	if (DesiredSalaryBox->Text == "") {
 		MessageBox::Show("Please Enter A Value");
 	}
-
 
 
 	else if (DesiredSalary->Text != "") {
@@ -748,7 +787,7 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 
 		
 		else {
-			MessageBox::Show("Please Enter Numbers Only");
+			MessageBox::Show("Please Enter Positive Numbers Only");
 		}
 	}
 
@@ -797,5 +836,6 @@ private: System::Void BFS_CheckBox_CheckedChanged_1(System::Object^ sender, Syst
 
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
+
 };
 }
