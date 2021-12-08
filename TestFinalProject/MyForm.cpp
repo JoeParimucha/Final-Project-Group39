@@ -9,7 +9,7 @@ using namespace System;
 using namespace System::Windows::Forms;
 
 
-
+/*
 class Job {
 public:
 	int ID;
@@ -112,28 +112,34 @@ void Graph::generate() {
 
 std::vector<Job> Graph::search(bool BFS, float variance, int salary) {
 	std::vector<Job> result;
-	if(BF)
+	if(BFS){
+		result = this->BFS(variance, salary);
+	}else{
+		result = this->DFS(variance, salary);
+	}
 	return result;
 }
 
 std::vector<Job> Graph::BFS(float variance) {
 	std::vector<Job> result;
 	//Code BFS Here
+	//your code here
 	return result;
 }
 
 std::vector<Job> Graph::DFS(float variance) {
 	std::vector<Job> result;
 	//Code DFS Here
+	//your code here
 	return result;
 }
-
+*/
 void main(array<String^>^ args)
 {
-	
+	/*
 	Graph* jobGraph = new Graph();
 	(*jobGraph).generate();
-
+	*/
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	TestFinalProject::MyForm form;
