@@ -98,7 +98,8 @@ namespace TestFinalProject {
 	private: System::Windows::Forms::CheckBox^ BFS_CheckBox;
 	private: System::Windows::Forms::CheckBox^ DFS_CheckBox;
 	private: System::Windows::Forms::Label^ PercentVariance;
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ PercentVarianceInsertBox;
+
 
 
 
@@ -162,7 +163,7 @@ namespace TestFinalProject {
 			this->BFS_CheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->DFS_CheckBox = (gcnew System::Windows::Forms::CheckBox());
 			this->PercentVariance = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->PercentVarianceInsertBox = (gcnew System::Windows::Forms::TextBox());
 			this->Table_Jobs_Salary->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GoldenGateBridge))->BeginInit();
 			this->SuspendLayout();
@@ -603,23 +604,23 @@ namespace TestFinalProject {
 			this->PercentVariance->Size = System::Drawing::Size(284, 41);
 			this->PercentVariance->TabIndex = 19;
 			this->PercentVariance->Text = L"Percent Variance:";
-			//this->PercentVariance->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
-			// textBox1
+			// PercentVarianceInsertBox
 			// 
-			this->textBox1->Location = System::Drawing::Point(418, 305);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(398, 26);
-			this->textBox1->TabIndex = 20;
-			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
+			this->PercentVarianceInsertBox->Location = System::Drawing::Point(418, 305);
+			this->PercentVarianceInsertBox->Name = L"PercentVarianceInsertBox";
+			this->PercentVarianceInsertBox->Size = System::Drawing::Size(398, 26);
+			this->PercentVarianceInsertBox->TabIndex = 20;
+			this->PercentVarianceInsertBox->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSize = true;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->ClientSize = System::Drawing::Size(1788, 1169);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->PercentVarianceInsertBox);
 			this->Controls->Add(this->PercentVariance);
 			this->Controls->Add(this->DFS_CheckBox);
 			this->Controls->Add(this->BFS_CheckBox);
@@ -670,19 +671,20 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 		}
 
 		msclr::interop::marshal_context checkPercentVariance;
-		std::string cleanStringPercentVariance = change.marshal_as<std::string>(PercentVariance->Text);
+		std::string cleanStringPercentVariance = checkPercentVariance.marshal_as<std::string>(PercentVarianceInsertBox->Text);
 
 		bool cleanPercentVariance = true;
 		for (int i = 0; i < cleanStringPercentVariance.length(); i++) {
-			if (isdigit(cleanStringPercentVariance[i]) == false) {
+			if (isdigit(cleanStringPercentVariance[i]) == false && cleanStringPercentVariance != "") {
 				cleanPercentVariance = false;
 			}
 		}
 
-
+		
 		if (clean == false && cleanPercentVariance == false) {
 			MessageBox::Show("Please Enter Numbers Only");
 		}
+		
 
 		if (clean == true && cleanPercentVariance == true) {
 			BFSSearchBox->Text = "";
@@ -744,6 +746,7 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 
 		}
 
+		
 		else {
 			MessageBox::Show("Please Enter Numbers Only");
 		}
