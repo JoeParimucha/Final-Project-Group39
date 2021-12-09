@@ -3,13 +3,14 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
+#include <map>
+#include <chrono>
 
 using namespace System;
 using namespace System::Windows::Forms;
 
 
-/*
+
 class Job {
 public:
 	int ID;
@@ -21,7 +22,21 @@ public:
 Job::Job(std::string _title, int _salary) {
 	title = _title;
 	salary = _salary;
-}
+} 
+
+
+class Graph {
+public:
+	int goodIndex;
+	std::vector<std::vector<Job>> adjList;
+	void insertJob(Job& newJob);
+	std::vector<Job> search(bool BFS, float variance, int salary, int& timeTaken);
+	std::vector<Job> BFS(float variance, int salary, int& timeTaken);
+	std::vector<Job> DFS(float variance, int salary, int& timeTaken);
+	void generate();
+	Graph();
+};
+
 
 Job generateJob(std::string line) {
 	std::vector<std::string> temp;
@@ -56,18 +71,6 @@ Job generateJob(std::string line) {
 	Job newJob(title, stoi(pay));
 	return newJob;
 }
-
-class Graph {
-public:
-	int goodIndex;
-	std::vector<std::vector<Job>> adjList;
-	void insertJob(Job& newJob);
-	std::vector<Job> search(bool BFS, float variance, int salary);
-	std::vector<Job> BFS(float variance, int salary);
-	std::vector<Job> DFS(float variance, int salary);
-	void generate();
-	Graph();
-};
 
 Graph::Graph() {
 	goodIndex = 0;
@@ -110,36 +113,103 @@ void Graph::generate() {
 	}
 }
 
-std::vector<Job> Graph::search(bool BFS, float variance, int salary) {
+std::vector<Job> Graph::search(bool BFS, float variance, int salary, int& timeTaken) {
 	std::vector<Job> result;
 	if(BFS){
-		result = this->BFS(variance, salary);
+		//result = this->BFS(variance, salary, timeTaken);
 	}else{
-		result = this->DFS(variance, salary);
+		//result = this->DFS(variance, salary, timeTaken);
 	}
 	return result;
 }
 
-std::vector<Job> Graph::BFS(float variance) {
-	std::vector<Job> result;
-	//Code BFS Here
+
+std::vector<Job> Graph::BFS(float variance, int salary, int& timeTaken) {
+	auto start = std::chrono::steady_clock::now();
+	//Code BFS Here (return a vector of 10 jobs, that meet the variance factor, aka if its 70,000 and a variance of 10%, 
+	//return the first 10 found within 63,000 and 77,000)
 	//your code here
+	std::vector<Job> result;
+	int min = salary - (salary * variance);
+	int max = salary + (salary * variance);
+	for (int i = 0; i < adjList.size(); i++)
+	{
+		if (result.size() == 10)
+		{
+			break;
+		}
+		std::vector<Job>& tempVec = adjList[i];
+		for (int j = 0; j < tempVec.size(); j++)
+		{
+			if (result.size() == 10)
+			{
+				break;
+			}
+			if (tempVec[j].salary >= min && tempVec[j].salary <= max)
+			{
+				result.push_back(tempVec[j]);
+			}
+		}
+	}
+
+	auto end = std::chrono::steady_clock::now();
+	double finalTime = double(std::chrono::duration_cast <std::chrono::milliseconds> (end - start).count());
+	int timeTook = int(finalTime);
+
+	timeTaken = timeTook;
+
 	return result;
 }
 
-std::vector<Job> Graph::DFS(float variance) {
+
+std::vector<Job> Graph::DFS(float variance, int salary, int& timeTaken) {
+	auto start = std::chrono::steady_clock::now();
 	std::vector<Job> result;
-	//Code DFS Here
-	//your code here
+	//Code DFS Here (return a vector of 10 jobs, that meet the variance factor, aka if its 70,000 and a variance of 10%, 
+	//return the first 10 found within 63,000 and 77,000)
+	int min = salary - (salary * variance);
+	int max = salary + (salary * variance);
+
+	std::map<std::vector<Job>, bool> vecMap;
+	for (int i = 0; i < adjList.size(); i++)
+	{
+		if (result.size() == 10)
+		{
+			break;
+		}
+		if (vecMap.find(adjList[i]) == vecMap.end())
+		{
+			vecMap[adjList[i]] == true;
+			for (auto j = adjList[i].begin(); j != adjList[i].end(); j++)
+			{
+				if (result.size() == 10)
+				{
+					break;
+				}
+				if ((*j).salary >= min && (*j).salary <= max)
+				{
+					result.push_back(*j);
+				}
+
+			}
+		}
+	}
+
+	auto end = std::chrono::steady_clock::now();
+	double finalTime = double(std::chrono::duration_cast <std::chrono::milliseconds> (end - start).count());
+	int timeTook = int(finalTime);
+	timeTaken = timeTook;
+
 	return result;
 }
-*/
+
+
 void main(array<String^>^ args)
 {
-	/*
+
 	Graph* jobGraph = new Graph();
 	(*jobGraph).generate();
-	*/
+	
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	TestFinalProject::MyForm form;

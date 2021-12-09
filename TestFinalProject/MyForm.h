@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>
+#include "MyForm.cpp""
 
 
 namespace TestFinalProject {
@@ -247,7 +248,7 @@ namespace TestFinalProject {
 			this->DesiredSalaryBox->Size = System::Drawing::Size(0, 20);
 			this->DesiredSalaryBox->TabIndex = 7;
 			this->DesiredSalaryBox->UseWaitCursor = true;
-			this->DesiredSalaryBox->TextChanged += gcnew System::EventHandler(this, &MyForm::DesiredSalaryBox_TextChanged);
+			//this->DesiredSalaryBox->TextChanged += gcnew System::EventHandler(this, &MyForm::DesiredSalaryBox_TextChanged);
 			// 
 			// BFSSearchBox
 			// 
@@ -365,7 +366,7 @@ namespace TestFinalProject {
 			this->Table_Jobs_Salary->Size = System::Drawing::Size(421, 504);
 			this->Table_Jobs_Salary->TabIndex = 15;
 			this->Table_Jobs_Salary->UseWaitCursor = true;
-			this->Table_Jobs_Salary->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Table_Jobs_Salary_Paint);
+			//this->Table_Jobs_Salary->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Table_Jobs_Salary_Paint);
 			// 
 			// Salary10
 			// 
@@ -684,7 +685,7 @@ namespace TestFinalProject {
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->UseWaitCursor = true;
-			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			//this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Table_Jobs_Salary->ResumeLayout(false);
 			this->Table_Jobs_Salary->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GoldenGateBridge))->EndInit();
@@ -740,48 +741,287 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 			}
 
 			else if (BFSChecked == true) {
+				bool BFSCh = true;
+				int timeTakenI = 0;
+				int& timeTaken = timeTakenI;
 				//This sets the values for the BFS Time Taken
-				std::string tempString = "1234567";
+				msclr::interop::marshal_context checkBFSSearchBox;
+				std::string cleancheckBFSSearchBox = checkBFSSearchBox.marshal_as<std::string>(BFSSearchBox->Text);
+				if (std::stoi(cleancheckBFSSearchBox) < 0 || std::stoi(cleancheckBFSSearchBox) > 320000) {
+					MessageBox::Show("Please enter a number between 0 and 320,000");
+				}
+				else {
+					Graph placeHolder;
+					std::vector<Job> jobVectorNew;
+					jobVectorNew = placeHolder.Graph::search(BFSCh, std::stof(cleanStringPercentVariance), std::stoi(cleancheckBFSSearchBox), timeTaken);
+
+					String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
+					JobTitle1->Text = tempString0;
+
+					String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
+					JobTitle2->Text = tempString1;
+
+					String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
+					JobTitle3->Text = tempString2;
+
+					String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
+					JobTitle4->Text = tempString3;
+
+					String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
+					JobTitle5->Text = tempString4;
+
+					String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
+					JobTitle6->Text = tempString5;
+
+					String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
+					JobTitle7->Text = tempString6;
+
+					String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
+					JobTitle8->Text = tempString7;
+
+					String^ tempString8 = gcnew String(jobVectorNew.at(8).title.c_str());
+					JobTitle9->Text = tempString8;
+
+					String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
+					JobTitle10->Text = tempString9;
+
+
+					//Converts the ints to strings to system strings
+					std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
+					String^ tempSR0 = gcnew String(tempS0.c_str());
+					Salary1->Text = tempSR0;
+
+					std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
+					String^ tempSR1 = gcnew String(tempS1.c_str());
+					Salary2->Text = tempSR1;
+
+					std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
+					String^ tempSR2 = gcnew String(tempS2.c_str());
+					Salary3->Text = tempSR2;
+
+					std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
+					String^ tempSR3 = gcnew String(tempS3.c_str());
+					Salary4->Text = tempSR3;
+
+					std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
+					String^ tempSR4 = gcnew String(tempS4.c_str());
+					Salary5->Text = tempSR4;
+
+					std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
+					String^ tempSR5 = gcnew String(tempS5.c_str());
+					Salary6->Text = tempSR5;
+
+					std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
+					String^ tempSR6 = gcnew String(tempS6.c_str());
+					Salary7->Text = tempSR6;
+
+					std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
+					String^ tempSR7 = gcnew String(tempS7.c_str());
+					Salary8->Text = tempSR7;
+
+					std::string tempS8 = std::to_string(jobVectorNew.at(8).salary);
+					String^ tempSR8 = gcnew String(tempS8.c_str());
+					Salary9->Text = tempSR8;
+
+					std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
+					String^ tempSR9 = gcnew String(tempS9.c_str());
+					Salary10->Text = tempSR9;
+				}
+
+				std::string tempString = std::to_string(timeTaken);
 				String^ testString = gcnew String(tempString.data());
 				BFSSearchBox->Text = testString;
 			}
 
 			else if (DFSChecked == true) {
+				bool BFSCh = false;
+				int timeTakenI = 0;
+				int& timeTaken = timeTakenI;
 				//This sets the values for the DFS Time Taken
-				std::string tempString1 = "12345678910";
+				//This sets the values for the BFS Time Taken
+				msclr::interop::marshal_context checkDFSSearchBox;
+				std::string cleancheckDFSSearchBox = checkDFSSearchBox.marshal_as<std::string>(DFSSearchBox->Text);
+
+				if (std::stoi(cleancheckDFSSearchBox) < 0 || std::stoi(cleancheckDFSSearchBox) > 320000) {
+					MessageBox::Show("Please enter a number between 0 and 320,000");
+				}
+
+				else {
+					Graph placeHolder;
+					std::vector<Job> jobVectorNew;
+					jobVectorNew = placeHolder.Graph::search(BFSCh, std::stof(cleanStringPercentVariance), std::stoi(cleancheckDFSSearchBox), timeTaken);
+
+					String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
+					JobTitle1->Text = tempString0;
+
+					String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
+					JobTitle2->Text = tempString1;
+
+					String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
+					JobTitle3->Text = tempString2;
+
+					String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
+					JobTitle4->Text = tempString3;
+
+					String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
+					JobTitle5->Text = tempString4;
+
+					String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
+					JobTitle6->Text = tempString5;
+
+					String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
+					JobTitle7->Text = tempString6;
+
+					String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
+					JobTitle8->Text = tempString7;
+
+					String^ tempString8 = gcnew String(jobVectorNew.at(8).title.c_str());
+					JobTitle9->Text = tempString8;
+
+					String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
+					JobTitle10->Text = tempString9;
+
+
+					//Converts the ints to strings to system strings
+					std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
+					String^ tempSR0 = gcnew String(tempS0.c_str());
+					Salary1->Text = tempSR0;
+
+					std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
+					String^ tempSR1 = gcnew String(tempS1.c_str());
+					Salary2->Text = tempSR1;
+
+					std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
+					String^ tempSR2 = gcnew String(tempS2.c_str());
+					Salary3->Text = tempSR2;
+
+					std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
+					String^ tempSR3 = gcnew String(tempS3.c_str());
+					Salary4->Text = tempSR3;
+
+					std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
+					String^ tempSR4 = gcnew String(tempS4.c_str());
+					Salary5->Text = tempSR4;
+
+					std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
+					String^ tempSR5 = gcnew String(tempS5.c_str());
+					Salary6->Text = tempSR5;
+
+					std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
+					String^ tempSR6 = gcnew String(tempS6.c_str());
+					Salary7->Text = tempSR6;
+
+					std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
+					String^ tempSR7 = gcnew String(tempS7.c_str());
+					Salary8->Text = tempSR7;
+
+					std::string tempS8 = std::to_string(jobVectorNew.at(8).salary);
+					String^ tempSR8 = gcnew String(tempS8.c_str());
+					Salary9->Text = tempSR8;
+
+					std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
+					String^ tempSR9 = gcnew String(tempS9.c_str());
+					Salary10->Text = tempSR9;
+				}
+
+				std::string tempString1 = std::to_string(timeTaken);
 				String^ testString1 = gcnew String(tempString1.data());
 				DFSSearchBox->Text = testString1;
 			}
 
 			else {
 				//Defaults to BFS and does not return the time
+				bool BFSCh = true;
+				int timeTakenI = 0;
+				int& timeTaken = timeTakenI;
+				//This sets the values for the BFS Time Taken
+				msclr::interop::marshal_context checkBFSSearchBox;
+				std::string cleancheckBFSSearchBox = checkBFSSearchBox.marshal_as<std::string>(BFSSearchBox->Text);
+
+				if (std::stoi(cleancheckBFSSearchBox) < 0 || std::stoi(cleancheckBFSSearchBox) > 320000) {
+					MessageBox::Show("Please enter a number between 0 and 320,000");
+				}
+
+				else {
+					Graph placeHolder;
+					BFSCh = true;
+					std::vector<Job> jobVectorNew;
+					jobVectorNew = placeHolder.Graph::search(BFSCh, std::stof(cleanStringPercentVariance), std::stoi(cleancheckBFSSearchBox), timeTaken);
+
+					String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
+					JobTitle1->Text = tempString0;
+
+					String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
+					JobTitle2->Text = tempString1;
+
+					String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
+					JobTitle3->Text = tempString2;
+
+					String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
+					JobTitle4->Text = tempString3;
+
+					String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
+					JobTitle5->Text = tempString4;
+
+					String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
+					JobTitle6->Text = tempString5;
+
+					String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
+					JobTitle7->Text = tempString6;
+
+					String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
+					JobTitle8->Text = tempString7;
+
+					String^ tempString8 = gcnew String(jobVectorNew.at(8).title.c_str());
+					JobTitle9->Text = tempString8;
+
+					String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
+					JobTitle10->Text = tempString9;
+
+
+					//Converts the ints to strings to system strings
+					std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
+					String^ tempSR0 = gcnew String(tempS0.c_str());
+					Salary1->Text = tempSR0;
+
+					std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
+					String^ tempSR1 = gcnew String(tempS1.c_str());
+					Salary2->Text = tempSR1;
+
+					std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
+					String^ tempSR2 = gcnew String(tempS2.c_str());
+					Salary3->Text = tempSR2;
+
+					std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
+					String^ tempSR3 = gcnew String(tempS3.c_str());
+					Salary4->Text = tempSR3;
+
+					std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
+					String^ tempSR4 = gcnew String(tempS4.c_str());
+					Salary5->Text = tempSR4;
+
+					std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
+					String^ tempSR5 = gcnew String(tempS5.c_str());
+					Salary6->Text = tempSR5;
+
+					std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
+					String^ tempSR6 = gcnew String(tempS6.c_str());
+					Salary7->Text = tempSR6;
+
+					std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
+					String^ tempSR7 = gcnew String(tempS7.c_str());
+					Salary8->Text = tempSR7;
+
+					std::string tempS8 = std::to_string(jobVectorNew.at(8).salary);
+					String^ tempSR8 = gcnew String(tempS8.c_str());
+					Salary9->Text = tempSR8;
+
+					std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
+					String^ tempSR9 = gcnew String(tempS9.c_str());
+					Salary10->Text = tempSR9;
+				}
 			}
-
-
-			//Update The Table With Values Found (These are tempValues)
-
-
-			JobTitle1->Text = "Hi";
-			JobTitle2->Text = "My";
-			JobTitle3->Text = "Name";
-			JobTitle4->Text = "Is";
-			JobTitle5->Text = "Pog";
-			JobTitle6->Text = "I";
-			JobTitle7->Text = "Hope";
-			JobTitle8->Text = "This";
-			JobTitle9->Text = "Really";
-			JobTitle10->Text = "Works";
-
-			Salary1->Text = "100000";
-			Salary2->Text = "100001";
-			Salary3->Text = "100002";
-			Salary4->Text = "100003";
-			Salary5->Text = "100004";
-			Salary6->Text = "100005";
-			Salary7->Text = "100006";
-			Salary8->Text = "100007";
-			Salary9->Text = "100008";
-			Salary10->Text = "100009";
+			
 
 		}
 
@@ -794,25 +1034,10 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 }
 
 
-private: System::Void DesiredSalaryBox_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-
-}
-private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-
-}
-
 private: System::Void Clicked_Job_Button(System::Object^ sender, System::EventArgs^ e) {
 	System::Diagnostics::Process::Start("https://sfdhr.org/job-seekers");
 }
 
-private: System::Void Table_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-
-}
-
-private: System::Void tableLayoutPanel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-private: System::Void Table_Jobs_Salary_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
 
 //Check to see if the checkbox is checked for the DFS Search
 private: System::Void DFS_CheckBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -832,13 +1057,6 @@ private: System::Void BFS_CheckBox_CheckedChanged_1(System::Object^ sender, Syst
 	else {
 		BFSChecked = false;
 	}
-}
-
-private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-
-
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 }
 
 };
