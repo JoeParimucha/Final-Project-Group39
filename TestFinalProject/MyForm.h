@@ -128,6 +128,7 @@ std::vector<Job> Graph::BFS(float variance, int salary, int& timeTaken) {
 	int max = salary + (salary * (variance / 100));
 	for (int i = 0; i < adjList.size(); i++)
 	{
+		std::cout << i << std::endl;
 		std::vector<Job>& tempVec = adjList[i];
 		for (int j = 0; j < tempVec.size(); j++)
 		{
@@ -156,22 +157,21 @@ std::vector<Job> Graph::BFS(float variance, int salary, int& timeTaken) {
 std::vector<Job> Graph::DFS(float variance, int salary, int& timeTaken) {
 	auto start = std::chrono::steady_clock::now();
 	std::vector<Job> result;
-	//Code DFS Here (return a vector of 10 jobs, that meet the variance factor, aka if its 70,000 and a variance of 10%, 
-	//return the first 10 found within 63,000 and 77,000)
-	//your code here
 	int min = salary - (salary * (variance / 100));
 	int max = salary + (salary * (variance / 100));
-
+	std::vector<Job> tempVec = adjList[0];
 	std::stack<Job> s;
 	std::map<Job, bool> tempMap;
 	int index = 0;
-	Job funnytemp = adjList[0][1];
+	Job funnytemp = tempVec[0];
 	s.push(funnytemp);
+	tempMap[funnytemp] = true;
 
-	//s.push(adjlist[0][1]);
-
-	while (!s.empty())
+	
+	int funnySize = 1;
+	while (funnySize > 0)
 	{
+		std::cout << index << std::endl;
 		if (result.size() == 10)
 		{
 			break;
@@ -179,11 +179,7 @@ std::vector<Job> Graph::DFS(float variance, int salary, int& timeTaken) {
 
 		Job front = s.top();
 		s.pop();
-
-		if (tempMap.find(front) != tempMap.end())
-		{
-			continue;
-		}
+		funnySize--;
 
 		tempMap[front] = true;
 		int jSal = front.salary;
@@ -192,18 +188,15 @@ std::vector<Job> Graph::DFS(float variance, int salary, int& timeTaken) {
 			result.push_back(front);
 		}
 
-		for (auto i = adjList[index].begin(); i != adjList[index].end(); i++)
+		for (int i = 0; i < adjList[index].size(); i++)
 		{
-			Job temp = *i;
-			if (tempMap.find(temp) == tempMap.end())
-			{
-				s.push(temp);
-			}
+			Job temp = adjList[index][i];
+			s.push(temp);
+			funnySize++;
 		}
 
 		index++;
 	}
-
 
 	auto end = std::chrono::steady_clock::now();
 	double finalTime = double(std::chrono::duration_cast <std::chrono::milliseconds> (end - start).count());
@@ -281,22 +274,13 @@ namespace TestFinalProject {
 
 	private: System::Windows::Forms::Label^ Instructions;
 
-
 	private: System::Windows::Forms::TextBox^ DesiredSalaryBox;
 	private: System::Windows::Forms::TextBox^ BFSSearchBox;
 	private: System::Windows::Forms::TextBox^ DFSSearchBox;
 
-
-
-
-
 	private: System::Windows::Forms::Button^ SearchClickyBox;
 
 	private: System::Windows::Forms::Label^ Salary;
-
-
-
-
 
 	private: System::Windows::Forms::Label^ JobTitle;
 	private: System::Windows::Forms::Button^ SanFranciscoJobWebsiteButton;
@@ -331,11 +315,7 @@ namespace TestFinalProject {
 	private: System::Windows::Forms::TextBox^ PercentVarianceBoxReal;
 	private: System::Windows::Forms::TextBox^ DesiredSalaryBoxReal;
 
-
-
 	private: System::ComponentModel::IContainer^ components;
-
-
 
 	private:
 		/// <summary>
@@ -1063,94 +1043,69 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 				}
 
 				else {
-
+					(*jobGraph).generate();
 					std::vector<Job> jobVectorNew;
 					jobVectorNew = (*jobGraph).search(BFSCh, std::stof(cleanStringPercentVariance), std::stoi(cleancheckDFSSearchBox), timeTaken);
 
-					switch (jobVectorNew.size()) {
-					case 10:
-					{
-						String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
-						JobTitle10->Text = tempString9;
-						std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
-						String^ tempSR9 = gcnew String(tempS9.c_str());
-						Salary10->Text = tempSR9;
-					}
-					case 9:
-					{
-						String^ tempString8 = gcnew String(jobVectorNew.at(8).title.c_str());
-						JobTitle9->Text = tempString8;
-						std::string tempS8 = std::to_string(jobVectorNew.at(8).salary);
-						String^ tempSR8 = gcnew String(tempS8.c_str());
-						Salary9->Text = tempSR8;
-					}
-					case 8:
-					{
-						String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
-						JobTitle8->Text = tempString7;
-						std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
-						String^ tempSR7 = gcnew String(tempS7.c_str());
-						Salary8->Text = tempSR7;
-					}
-					case 7:
-					{
-						String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
-						JobTitle7->Text = tempString6;
-						std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
-						String^ tempSR6 = gcnew String(tempS6.c_str());
-						Salary7->Text = tempSR6;
-					}
-					case 6:
-					{
-						String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
-						JobTitle6->Text = tempString5;
-						std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
-						String^ tempSR5 = gcnew String(tempS5.c_str());
-						Salary6->Text = tempSR5;
-					}
-					case 5:
-					{
-						String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
-						JobTitle5->Text = tempString4;
-						std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
-						String^ tempSR4 = gcnew String(tempS4.c_str());
-						Salary5->Text = tempSR4;
-					}
-					case 4:
-					{
-						String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
-						JobTitle4->Text = tempString3;
-						std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
-						String^ tempSR3 = gcnew String(tempS3.c_str());
-						Salary4->Text = tempSR3;
-					}
-					case 3:
-					{
-						String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
-						JobTitle3->Text = tempString2;
-						std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
-						String^ tempSR2 = gcnew String(tempS2.c_str());
-						Salary3->Text = tempSR2;
-					}
-					case 2:
-					{
-						String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
-						JobTitle2->Text = tempString1;
-						std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
-						String^ tempSR1 = gcnew String(tempS1.c_str());
-						Salary2->Text = tempSR1;
-					}
-					case 1:
-					{
-						String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
-						JobTitle1->Text = tempString0;
-						std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
-						String^ tempSR0 = gcnew String(tempS0.c_str());
-						Salary1->Text = tempSR0;
-					}
-					default:
-						break;
-					}
+					String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
+					JobTitle10->Text = tempString9;
+					std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
+					String^ tempSR9 = gcnew String(tempS9.c_str());
+					Salary10->Text = tempSR9;
+
+					String^ tempString8 = gcnew String(jobVectorNew.at(8).title.c_str());
+					JobTitle9->Text = tempString8;
+					std::string tempS8 = std::to_string(jobVectorNew.at(8).salary);
+					String^ tempSR8 = gcnew String(tempS8.c_str());
+					Salary9->Text = tempSR8;
+
+					String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
+					JobTitle8->Text = tempString7;
+					std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
+					String^ tempSR7 = gcnew String(tempS7.c_str());
+					Salary8->Text = tempSR7;
+
+					String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
+					JobTitle7->Text = tempString6;
+					std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
+					String^ tempSR6 = gcnew String(tempS6.c_str());
+					Salary7->Text = tempSR6;
+
+					String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
+					JobTitle6->Text = tempString5;
+					std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
+					String^ tempSR5 = gcnew String(tempS5.c_str());
+					Salary6->Text = tempSR5;
+
+					String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
+					JobTitle5->Text = tempString4;
+					std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
+					String^ tempSR4 = gcnew String(tempS4.c_str());
+					Salary5->Text = tempSR4;
+
+					String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
+					JobTitle4->Text = tempString3;
+					std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
+					String^ tempSR3 = gcnew String(tempS3.c_str());
+					Salary4->Text = tempSR3;
+
+					String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
+					JobTitle3->Text = tempString2;
+					std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
+					String^ tempSR2 = gcnew String(tempS2.c_str());
+					Salary3->Text = tempSR2;
+
+					String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
+					JobTitle2->Text = tempString1;
+					std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
+					String^ tempSR1 = gcnew String(tempS1.c_str());
+					Salary2->Text = tempSR1;
+
+					String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
+					JobTitle1->Text = tempString0;
+					std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
+					String^ tempSR0 = gcnew String(tempS0.c_str());
+					Salary1->Text = tempSR0;
 				}
 
 					std::string tempString11 = std::to_string(timeTaken);
@@ -1173,81 +1128,70 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 				}
 
 				else {
+					(*jobGraph).generate();
 					BFSCh = true;
 					std::vector<Job> jobVectorNew;
 					jobVectorNew = (*jobGraph).search(BFSCh, std::stof(cleanStringPercentVariance), std::stoi(cleancheckBFSSearchBox), timeTaken);
 
-					String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
-					JobTitle1->Text = tempString0;
-
-					String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
-					JobTitle2->Text = tempString1;
-
-					String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
-					JobTitle3->Text = tempString2;
-
-					String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
-					JobTitle4->Text = tempString3;
-
-					String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
-					JobTitle5->Text = tempString4;
-
-					String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
-					JobTitle6->Text = tempString5;
-
-					String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
-					JobTitle7->Text = tempString6;
-
-					String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
-					JobTitle8->Text = tempString7;
+					String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
+					JobTitle10->Text = tempString9;
+					std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
+					String^ tempSR9 = gcnew String(tempS9.c_str());
+					Salary10->Text = tempSR9;
 
 					String^ tempString8 = gcnew String(jobVectorNew.at(8).title.c_str());
 					JobTitle9->Text = tempString8;
-
-					String^ tempString9 = gcnew String(jobVectorNew.at(9).title.c_str());
-					JobTitle10->Text = tempString9;
-
-
-					//Converts the ints to strings to system strings
-					std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
-					String^ tempSR0 = gcnew String(tempS0.c_str());
-					Salary1->Text = tempSR0;
-
-					std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
-					String^ tempSR1 = gcnew String(tempS1.c_str());
-					Salary2->Text = tempSR1;
-
-					std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
-					String^ tempSR2 = gcnew String(tempS2.c_str());
-					Salary3->Text = tempSR2;
-
-					std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
-					String^ tempSR3 = gcnew String(tempS3.c_str());
-					Salary4->Text = tempSR3;
-
-					std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
-					String^ tempSR4 = gcnew String(tempS4.c_str());
-					Salary5->Text = tempSR4;
-
-					std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
-					String^ tempSR5 = gcnew String(tempS5.c_str());
-					Salary6->Text = tempSR5;
-
-					std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
-					String^ tempSR6 = gcnew String(tempS6.c_str());
-					Salary7->Text = tempSR6;
-
-					std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
-					String^ tempSR7 = gcnew String(tempS7.c_str());
-					Salary8->Text = tempSR7;
-
 					std::string tempS8 = std::to_string(jobVectorNew.at(8).salary);
 					String^ tempSR8 = gcnew String(tempS8.c_str());
 					Salary9->Text = tempSR8;
 
-					std::string tempS9 = std::to_string(jobVectorNew.at(9).salary);
-					String^ tempSR9 = gcnew String(tempS9.c_str());
-					Salary10->Text = tempSR9;
+					String^ tempString7 = gcnew String(jobVectorNew.at(7).title.c_str());
+					JobTitle8->Text = tempString7;
+					std::string tempS7 = std::to_string(jobVectorNew.at(7).salary);
+					String^ tempSR7 = gcnew String(tempS7.c_str());
+					Salary8->Text = tempSR7;
+
+					String^ tempString6 = gcnew String(jobVectorNew.at(6).title.c_str());
+					JobTitle7->Text = tempString6;
+					std::string tempS6 = std::to_string(jobVectorNew.at(6).salary);
+					String^ tempSR6 = gcnew String(tempS6.c_str());
+					Salary7->Text = tempSR6;
+
+					String^ tempString5 = gcnew String(jobVectorNew.at(5).title.c_str());
+					JobTitle6->Text = tempString5;
+					std::string tempS5 = std::to_string(jobVectorNew.at(5).salary);
+					String^ tempSR5 = gcnew String(tempS5.c_str());
+					Salary6->Text = tempSR5;
+
+					String^ tempString4 = gcnew String(jobVectorNew.at(4).title.c_str());
+					JobTitle5->Text = tempString4;
+					std::string tempS4 = std::to_string(jobVectorNew.at(4).salary);
+					String^ tempSR4 = gcnew String(tempS4.c_str());
+					Salary5->Text = tempSR4;
+
+					String^ tempString3 = gcnew String(jobVectorNew.at(3).title.c_str());
+					JobTitle4->Text = tempString3;
+					std::string tempS3 = std::to_string(jobVectorNew.at(3).salary);
+					String^ tempSR3 = gcnew String(tempS3.c_str());
+					Salary4->Text = tempSR3;
+
+					String^ tempString2 = gcnew String(jobVectorNew.at(2).title.c_str());
+					JobTitle3->Text = tempString2;
+					std::string tempS2 = std::to_string(jobVectorNew.at(2).salary);
+					String^ tempSR2 = gcnew String(tempS2.c_str());
+					Salary3->Text = tempSR2;
+
+					String^ tempString1 = gcnew String(jobVectorNew.at(1).title.c_str());
+					JobTitle2->Text = tempString1;
+					std::string tempS1 = std::to_string(jobVectorNew.at(1).salary);
+					String^ tempSR1 = gcnew String(tempS1.c_str());
+					Salary2->Text = tempSR1;
+
+					String^ tempString0 = gcnew String(jobVectorNew.at(0).title.c_str());
+					JobTitle1->Text = tempString0;
+					std::string tempS0 = std::to_string(jobVectorNew.at(0).salary);
+					String^ tempSR0 = gcnew String(tempS0.c_str());
+					Salary1->Text = tempSR0;
 				}
 			}
 			
