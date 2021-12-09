@@ -2,7 +2,232 @@
 #include <string>
 #include <iostream>
 #include <msclr\marshal_cppstd.h>
-#include "MyForm.cpp""
+#include <vector>
+#include <fstream>
+#include <map>
+#include <chrono>
+#include <stack>
+
+using namespace System;
+using namespace System::Windows::Forms;
+
+
+
+class Job {
+public:
+	int ID;
+	std::string title;
+	int salary;
+	Job(std::string _title, int _salary);
+};
+
+Job::Job(std::string _title, int _salary) {
+	title = _title;
+	salary = _salary;
+}
+
+
+class Graph {
+public:
+	int goodIndex;
+	std::vector<std::vector<Job>> adjList;
+	void insertJob(Job& newJob);
+	std::vector<Job> search(bool BFS, float variance, int salary, int& timeTaken);
+	std::vector<Job> BFS(float variance, int salary, int& timeTaken);
+	std::vector<Job> DFS(float variance, int salary, int& timeTaken);
+	void generate();
+	Graph();
+};
+
+
+Job generateJob(std::string line) {
+	std::vector<std::string> temp;
+	std::string title = "";
+	std::string pay = "";
+	bool readingTitle = false;
+	int commaCount = 0;
+	for (char c : line) {
+		if (commaCount == 2) { //reading title
+			if (c == '\"') {
+				readingTitle ? readingTitle = false : readingTitle = true;
+			}
+			if (readingTitle || c != ',') {
+				title += c;
+			}
+			else if (c == ',') {
+				commaCount++;
+			}
+		}
+		else if (commaCount == 3) {
+			if (c != ',' && c != '.') {
+				pay += c;
+			}
+			else {
+				break;
+			}
+		}
+		else if (c == ',') {
+			commaCount++;
+		}
+	}
+	Job newJob(title, stoi(pay));
+	return newJob;
+}
+
+Graph::Graph() {
+	goodIndex = 0;
+	std::vector<Job> smallVec;
+	std::vector<std::vector<Job>> bigVec(150000, smallVec);
+	adjList = bigVec;
+}
+
+void Graph::insertJob(Job& newJob) {
+	for (int i = goodIndex; i < adjList.size(); i++) {
+		std::vector<Job> v = adjList[i];
+		if (v.size() < 5) {
+			v.push_back(newJob);
+			adjList[i] = v;
+			goodIndex = i;
+			break;
+		}
+	}
+	std::cout << newJob.ID << std::endl;
+}
+
+void Graph::generate() {
+	std::ifstream inFile;
+	inFile.open("Salaries.csv");
+	if (inFile.is_open()) {
+		std::cout << "File is open!" << std::endl;
+	}
+	else {
+		std::cout << "File is NOT open!" << std::endl;
+	}
+	std::string header;
+	std::getline(inFile, header);
+	std::string line;
+	int tempID = 0;
+	while (getline(inFile, line)) {
+		Job tempJob = generateJob(line);
+		tempJob.ID = tempID;
+		tempID++;
+		this->insertJob(tempJob);
+	}
+}
+
+std::vector<Job> Graph::search(bool BFS, float variance, int salary, int& timeTaken) {
+	std::vector<Job> result;
+	if (BFS) {
+		result = this->BFS(variance, salary, timeTaken);
+	}
+	else {
+		result = this->DFS(variance, salary, timeTaken);
+	}
+	return result;
+}
+
+
+std::vector<Job> Graph::BFS(float variance, int salary, int& timeTaken) {
+	auto start = std::chrono::steady_clock::now();
+	//Code BFS Here (return a vector of 10 jobs, that meet the variance factor, aka if its 70,000 and a variance of 10%, 
+	//return the first 10 found within 63,000 and 77,000)
+	//your code here
+	std::vector<Job> result;
+	int min = salary - (salary * variance);
+	int max = salary + (salary * variance);
+	for (int i = 0; i < adjList.size(); i++)
+	{
+		if (result.size() == 10)
+		{
+			break;
+		}
+		std::vector<Job>& tempVec = adjList[i];
+		for (int j = 0; j < tempVec.size(); j++)
+		{
+			if (result.size() == 10)
+			{
+				break;
+			}
+			int jSal = tempVec[j].salary;
+			if (jSal >= min && jSal <= max)
+			{
+				result.push_back(tempVec[j]);
+			}
+		}
+	}
+
+	auto end = std::chrono::steady_clock::now();
+	double finalTime = double(std::chrono::duration_cast <std::chrono::milliseconds> (end - start).count());
+	int timeTook = int(finalTime);
+
+	timeTaken = timeTook;
+
+	return result;
+}
+
+
+std::vector<Job> Graph::DFS(float variance, int salary, int& timeTaken) {
+	auto start = std::chrono::steady_clock::now();
+	std::vector<Job> result;
+	//Code DFS Here (return a vector of 10 jobs, that meet the variance factor, aka if its 70,000 and a variance of 10%, 
+	//return the first 10 found within 63,000 and 77,000)
+	//your code here
+	int min = salary - (salary * variance);
+	int max = salary + (salary * variance);
+
+	std::stack<Job> s;
+	std::map<Job, bool> tempMap;
+	int index = 0;
+
+	s.push(adjList[0][0]);
+
+	while (!s.empty())
+	{
+		if (result.size() == 10)
+		{
+			break;
+		}
+
+		Job front = s.top();
+		s.pop();
+
+		if (tempMap.find(front) != tempMap.end())
+		{
+			continue;
+		}
+
+		tempMap[front] = true;
+		int jSal = front.salary;
+		if (jSal >= min && jSal <= max)
+		{
+			result.push_back(front);
+		}
+
+		for (auto i = adjList[index].begin(); i != adjList[index].end(); i++)
+		{
+			Job temp = *i;
+			if (tempMap.find(temp) == tempMap.end())
+			{
+				s.push(temp);
+			}
+		}
+
+		index++;
+
+
+	}
+
+
+
+
+	auto end = std::chrono::steady_clock::now();
+	double finalTime = double(std::chrono::duration_cast <std::chrono::milliseconds> (end - start).count());
+	int timeTook = int(finalTime);
+	timeTaken = timeTook;
+
+	return result;
+}
+
 
 
 namespace TestFinalProject {
@@ -747,6 +972,7 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 				//This sets the values for the BFS Time Taken
 				msclr::interop::marshal_context checkBFSSearchBox;
 				std::string cleancheckBFSSearchBox = checkBFSSearchBox.marshal_as<std::string>(BFSSearchBox->Text);
+
 				if (std::stoi(cleancheckBFSSearchBox) < 0 || std::stoi(cleancheckBFSSearchBox) > 320000) {
 					MessageBox::Show("Please enter a number between 0 and 320,000");
 				}
@@ -924,8 +1150,8 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 					Salary10->Text = tempSR9;
 				}
 
-				std::string tempString1 = std::to_string(timeTaken);
-				String^ testString1 = gcnew String(tempString1.data());
+				std::string tempString11 = std::to_string(timeTaken);
+				String^ testString1 = gcnew String(tempString11.data());
 				DFSSearchBox->Text = testString1;
 			}
 
@@ -1061,3 +1287,5 @@ private: System::Void BFS_CheckBox_CheckedChanged_1(System::Object^ sender, Syst
 
 };
 }
+
+
