@@ -13,7 +13,7 @@ using namespace System::Windows::Forms;
 bool firstSearch = true;
 
 
-class Job {
+class Job { 
 public:
 	int ID;
 	std::string title;
@@ -54,7 +54,7 @@ Job generateJob(std::string line) {
 			if (c == '\"') {
 				readingTitle ? readingTitle = false : readingTitle = true;
 			}
-			if (readingTitle || c != ',') {
+			if ((readingTitle || c != ',') && c != '\"') {
 				title += c;
 			}
 			else if (c == ',') {
@@ -76,7 +76,6 @@ Job generateJob(std::string line) {
 	Job newJob(title, stoi(pay));
 	return newJob;
 }
-
 
 
 Graph::Graph() {
@@ -123,6 +122,7 @@ std::vector<Job> Graph::BFS(float variance, int salary, int& timeTaken) {
 	//Code BFS Here (return a vector of 10 jobs, that meet the variance factor, aka if its 70,000 and a variance of 10%, 
 	//return the first 10 found within 63,000 and 77,000)
 	//your code here
+
 	std::vector<Job> result;
 	int min = salary - (salary * (variance / 100));
 	int max = salary + (salary * (variance / 100));
@@ -165,8 +165,10 @@ std::vector<Job> Graph::DFS(float variance, int salary, int& timeTaken) {
 	std::stack<Job> s;
 	std::map<Job, bool> tempMap;
 	int index = 0;
+	Job funnytemp = adjList[0][1];
+	s.push(funnytemp);
 
-	s.push(adjList[0][0]);
+	//s.push(adjlist[0][1]);
 
 	while (!s.empty())
 	{
@@ -1041,6 +1043,7 @@ private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e)
 					//Converts the ints to strings to system strings
 				}
 
+				
 				std::string tempString = std::to_string(timeTaken);
 				String^ testString = gcnew String(tempString.data());
 				BFSSearchBox->Text = testString;
