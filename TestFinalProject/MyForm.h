@@ -899,6 +899,7 @@ namespace TestFinalProject {
 
 //Executed when the search button is clicked
 	private: System::Void Search_Click(System::Object^ sender, System::EventArgs^ e) {
+		bool pleaseEnterPosOnly = true;
 		if (DesiredSalaryBoxReal->Text == "") {
 			MessageBox::Show("Please Enter A Value");
 		}
@@ -928,6 +929,12 @@ namespace TestFinalProject {
 			//Prints out a message if something other than numbers is entered-----------------------------------------------------------------
 			if (clean == false && cleanPercentVariance == false) {
 				MessageBox::Show("Please Enter Numbers Only");
+			}
+
+			if (PercentVarianceBoxReal->Text == "") {
+				MessageBox::Show("Please Enter A Value For Percent Variance");
+				pleaseEnterPosOnly = false;
+				cleanPercentVariance = false;
 			}
 
 			if (clean == true && cleanPercentVariance == true) {
@@ -1205,7 +1212,9 @@ namespace TestFinalProject {
 			}
 
 			else {
+			if (pleaseEnterPosOnly == true) {
 				MessageBox::Show("Please Enter Positive Numbers Only");
+			}
 			}
 		}
 
